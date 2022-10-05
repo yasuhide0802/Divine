@@ -5,10 +5,11 @@
  * --------------------------------------------------------------------------
  */
 
-import { defineJQueryPlugin, getElementFromSelector, getNextActiveElement, isDisabled } from './util/index'
+import { getElementFromSelector, getNextActiveElement, isDisabled } from './util/index'
 import EventHandler from './dom/event-handler'
 import SelectorEngine from './dom/selector-engine'
 import BaseComponent from './base-component'
+import { defineJQueryPlugin } from './util/jquery-stuff'
 
 /**
  * Constants
@@ -252,23 +253,6 @@ class Tab extends BaseComponent {
   // Try to get the outer element (usually the .nav-item)
   _getOuterElement(elem) {
     return elem.closest(SELECTOR_OUTER) || elem
-  }
-
-  // Static
-  static jQueryInterface(config) {
-    return this.each(function () {
-      const data = Tab.getOrCreateInstance(this)
-
-      if (typeof config !== 'string') {
-        return
-      }
-
-      if (data[config] === undefined || config.startsWith('_') || config === 'constructor') {
-        throw new TypeError(`No method named "${config}"`)
-      }
-
-      data[config]()
-    })
   }
 }
 

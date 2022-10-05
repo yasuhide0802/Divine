@@ -3,6 +3,7 @@ import EventHandler from '../../src/dom/event-handler'
 import { clearBodyAndDocument, clearFixture, createEvent, getFixture, jQueryMock } from '../helpers/fixture'
 import { isVisible } from '../../src/util/index'
 import ScrollBarHelper from '../../src/util/scrollbar'
+import { getJqueryInterfaceForPlugin } from '../../src/util/jquery-stuff'
 
 describe('Offcanvas', () => {
   let fixtureEl
@@ -742,7 +743,7 @@ describe('Offcanvas', () => {
 
       const div = fixtureEl.querySelector('div')
 
-      jQueryMock.fn.offcanvas = Offcanvas.jQueryInterface
+      jQueryMock.fn.offcanvas = getJqueryInterfaceForPlugin(Offcanvas)
       jQueryMock.elements = [div]
 
       jQueryMock.fn.offcanvas.call(jQueryMock)
@@ -756,7 +757,7 @@ describe('Offcanvas', () => {
       const div = fixtureEl.querySelector('div')
       const offCanvas = new Offcanvas(div)
 
-      jQueryMock.fn.offcanvas = Offcanvas.jQueryInterface
+      jQueryMock.fn.offcanvas = getJqueryInterfaceForPlugin(Offcanvas)
       jQueryMock.elements = [div]
 
       jQueryMock.fn.offcanvas.call(jQueryMock)
@@ -770,7 +771,7 @@ describe('Offcanvas', () => {
       const div = fixtureEl.querySelector('div')
       const action = 'undefinedMethod'
 
-      jQueryMock.fn.offcanvas = Offcanvas.jQueryInterface
+      jQueryMock.fn.offcanvas = getJqueryInterfaceForPlugin(Offcanvas)
       jQueryMock.elements = [div]
 
       expect(() => {
@@ -784,7 +785,7 @@ describe('Offcanvas', () => {
       const div = fixtureEl.querySelector('div')
       const action = '_getConfig'
 
-      jQueryMock.fn.offcanvas = Offcanvas.jQueryInterface
+      jQueryMock.fn.offcanvas = getJqueryInterfaceForPlugin(Offcanvas)
       jQueryMock.elements = [div]
 
       expect(() => {
@@ -798,7 +799,7 @@ describe('Offcanvas', () => {
       const div = fixtureEl.querySelector('div')
       const action = 'constructor'
 
-      jQueryMock.fn.offcanvas = Offcanvas.jQueryInterface
+      jQueryMock.fn.offcanvas = getJqueryInterfaceForPlugin(Offcanvas)
       jQueryMock.elements = [div]
 
       expect(() => {
@@ -813,7 +814,7 @@ describe('Offcanvas', () => {
 
       const spy = spyOn(Offcanvas.prototype, 'show')
 
-      jQueryMock.fn.offcanvas = Offcanvas.jQueryInterface
+      jQueryMock.fn.offcanvas = getJqueryInterfaceForPlugin(Offcanvas)
       jQueryMock.elements = [div]
 
       jQueryMock.fn.offcanvas.call(jQueryMock, 'show')
@@ -825,7 +826,7 @@ describe('Offcanvas', () => {
 
       const div = fixtureEl.querySelector('div')
 
-      jQueryMock.fn.offcanvas = Offcanvas.jQueryInterface
+      jQueryMock.fn.offcanvas = getJqueryInterfaceForPlugin(Offcanvas)
       jQueryMock.elements = [div]
 
       jQueryMock.fn.offcanvas.call(jQueryMock, { scroll: true })

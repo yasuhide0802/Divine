@@ -6,7 +6,6 @@
  */
 
 import {
-  defineJQueryPlugin,
   getElement,
   getElementFromSelector,
   getSelectorFromElement,
@@ -15,6 +14,7 @@ import {
 import EventHandler from './dom/event-handler'
 import SelectorEngine from './dom/selector-engine'
 import BaseComponent from './base-component'
+import { defineJQueryPlugin } from './util/jquery-stuff'
 
 /**
  * Constants
@@ -264,13 +264,15 @@ class Collapse extends BaseComponent {
     return this.each(function () {
       const data = Collapse.getOrCreateInstance(this, _config)
 
-      if (typeof config === 'string') {
-        if (typeof data[config] === 'undefined') {
-          throw new TypeError(`No method named "${config}"`)
-        }
-
-        data[config]()
+      if (typeof config !== 'string') {
+        return
       }
+
+      if (data[config] === undefined || config.startsWith('_') || config === 'constructor') {
+        throw new TypeError(`No method named "${config}"`)
+      }
+
+      data[config]()
     })
   }
 }

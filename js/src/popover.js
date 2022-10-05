@@ -5,8 +5,8 @@
  * --------------------------------------------------------------------------
  */
 
-import { defineJQueryPlugin } from './util/index'
 import Tooltip from './tooltip'
+import { defineJQueryPlugin } from './util/jquery-stuff'
 
 /**
  * Constants
@@ -68,23 +68,6 @@ class Popover extends Tooltip {
 
   _getContent() {
     return this._resolvePossibleFunction(this._config.content)
-  }
-
-  // Static
-  static jQueryInterface(config) {
-    return this.each(function () {
-      const data = Popover.getOrCreateInstance(this, config)
-
-      if (typeof config !== 'string') {
-        return
-      }
-
-      if (typeof data[config] === 'undefined') {
-        throw new TypeError(`No method named "${config}"`)
-      }
-
-      data[config]()
-    })
   }
 }
 

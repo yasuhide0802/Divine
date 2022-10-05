@@ -5,10 +5,10 @@
  * --------------------------------------------------------------------------
  */
 
-import { defineJQueryPlugin } from './util/index'
 import EventHandler from './dom/event-handler'
 import BaseComponent from './base-component'
 import { enableDismissTrigger } from './util/component-functions'
+import { defineJQueryPlugin } from './util/jquery-stuff'
 
 /**
  * Constants
@@ -52,23 +52,6 @@ class Alert extends BaseComponent {
     this._element.remove()
     EventHandler.trigger(this._element, EVENT_CLOSED)
     this.dispose()
-  }
-
-  // Static
-  static jQueryInterface(config) {
-    return this.each(function () {
-      const data = Alert.getOrCreateInstance(this)
-
-      if (typeof config !== 'string') {
-        return
-      }
-
-      if (data[config] === undefined || config.startsWith('_') || config === 'constructor') {
-        throw new TypeError(`No method named "${config}"`)
-      }
-
-      data[config](this)
-    })
   }
 }
 

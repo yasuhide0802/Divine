@@ -538,39 +538,6 @@ describe('Util', () => {
     })
   })
 
-  describe('getjQuery', () => {
-    const fakejQuery = { trigger() {} }
-
-    beforeEach(() => {
-      Object.defineProperty(window, 'jQuery', {
-        value: fakejQuery,
-        writable: true
-      })
-    })
-
-    afterEach(() => {
-      window.jQuery = undefined
-    })
-
-    it('should return jQuery object when present', () => {
-      expect(Util.getjQuery()).toEqual(fakejQuery)
-    })
-
-    it('should not return jQuery object when present if data-bs-no-jquery', () => {
-      document.body.setAttribute('data-bs-no-jquery', '')
-
-      expect(window.jQuery).toEqual(fakejQuery)
-      expect(Util.getjQuery()).toBeNull()
-
-      document.body.removeAttribute('data-bs-no-jquery')
-    })
-
-    it('should not return jQuery if not present', () => {
-      window.jQuery = undefined
-      expect(Util.getjQuery()).toBeNull()
-    })
-  })
-
   describe('onDOMContentLoaded', () => {
     it('should execute callbacks when DOMContentLoaded is fired and should not add more than one listener', () => {
       const spy = jasmine.createSpy()
@@ -596,32 +563,6 @@ describe('Util', () => {
       const spy = jasmine.createSpy()
       Util.onDOMContentLoaded(spy)
       expect(spy).toHaveBeenCalled()
-    })
-  })
-
-  describe('defineJQueryPlugin', () => {
-    const fakejQuery = { fn: {} }
-
-    beforeEach(() => {
-      Object.defineProperty(window, 'jQuery', {
-        value: fakejQuery,
-        writable: true
-      })
-    })
-
-    afterEach(() => {
-      window.jQuery = undefined
-    })
-
-    it('should define a plugin on the jQuery instance', () => {
-      const pluginMock = Util.noop
-      pluginMock.NAME = 'test'
-      pluginMock.jQueryInterface = Util.noop
-
-      Util.defineJQueryPlugin(pluginMock)
-      expect(fakejQuery.fn.test).toEqual(pluginMock.jQueryInterface)
-      expect(fakejQuery.fn.test.Constructor).toEqual(pluginMock)
-      expect(fakejQuery.fn.test.noConflict).toEqual(jasmine.any(Function))
     })
   })
 

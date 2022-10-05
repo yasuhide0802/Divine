@@ -6,7 +6,6 @@
  */
 
 import {
-  defineJQueryPlugin,
   getElementFromSelector,
   isDisabled,
   isVisible
@@ -18,6 +17,7 @@ import SelectorEngine from './dom/selector-engine'
 import Backdrop from './util/backdrop'
 import FocusTrap from './util/focustrap'
 import { enableDismissTrigger } from './util/component-functions'
+import { defineJQueryPlugin } from './util/jquery-stuff'
 
 /**
  * Constants
@@ -205,23 +205,6 @@ class Offcanvas extends BaseComponent {
       }
 
       this.hide()
-    })
-  }
-
-  // Static
-  static jQueryInterface(config) {
-    return this.each(function () {
-      const data = Offcanvas.getOrCreateInstance(this, config)
-
-      if (typeof config !== 'string') {
-        return
-      }
-
-      if (data[config] === undefined || config.startsWith('_') || config === 'constructor') {
-        throw new TypeError(`No method named "${config}"`)
-      }
-
-      data[config](this)
     })
   }
 }

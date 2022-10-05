@@ -13,9 +13,24 @@ import Tab from '../../src/tab'
 import Toast from '../../src/toast'
 import Tooltip from '../../src/tooltip'
 import { clearFixture, getFixture } from '../helpers/fixture'
+import { getJqueryInterfaceForPlugin } from '../../src/util/jquery-stuff'
 
 describe('jQuery', () => {
   let fixtureEl
+  const plugins = [
+    Alert,
+    Button,
+    Carousel,
+    Collapse,
+    Dropdown,
+    Modal,
+    Offcanvas,
+    Popover,
+    ScrollSpy,
+    Tab,
+    Toast,
+    Tooltip
+  ]
 
   beforeAll(() => {
     fixtureEl = getFixture()
@@ -26,18 +41,22 @@ describe('jQuery', () => {
   })
 
   it('should add all plugins in jQuery', () => {
-    expect(Alert.jQueryInterface).toEqual(jQuery.fn.alert)
-    expect(Button.jQueryInterface).toEqual(jQuery.fn.button)
-    expect(Carousel.jQueryInterface).toEqual(jQuery.fn.carousel)
-    expect(Collapse.jQueryInterface).toEqual(jQuery.fn.collapse)
-    expect(Dropdown.jQueryInterface).toEqual(jQuery.fn.dropdown)
-    expect(Modal.jQueryInterface).toEqual(jQuery.fn.modal)
-    expect(Offcanvas.jQueryInterface).toEqual(jQuery.fn.offcanvas)
-    expect(Popover.jQueryInterface).toEqual(jQuery.fn.popover)
-    expect(ScrollSpy.jQueryInterface).toEqual(jQuery.fn.scrollspy)
-    expect(Tab.jQueryInterface).toEqual(jQuery.fn.tab)
-    expect(Toast.jQueryInterface).toEqual(jQuery.fn.toast)
-    expect(Tooltip.jQueryInterface).toEqual(jQuery.fn.tooltip)
+    for (const plugin of plugins) {
+      getJqueryInterfaceForPlugin(plugin)
+    }
+
+    expect(jQuery.fn.alert).toBeDefined()
+    expect(jQuery.fn.button).toBeDefined()
+    expect(jQuery.fn.carousel).toBeDefined()
+    expect(jQuery.fn.collapse).toBeDefined()
+    expect(jQuery.fn.dropdown).toBeDefined()
+    expect(jQuery.fn.modal).toBeDefined()
+    expect(jQuery.fn.offcanvas).toBeDefined()
+    expect(jQuery.fn.popover).toBeDefined()
+    expect(jQuery.fn.scrollspy).toBeDefined()
+    expect(jQuery.fn.tab).toBeDefined()
+    expect(jQuery.fn.toast).toBeDefined()
+    expect(jQuery.fn.tooltip).toBeDefined()
   })
 
   it('should use jQuery event system', () => {

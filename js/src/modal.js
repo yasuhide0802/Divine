@@ -5,7 +5,7 @@
  * --------------------------------------------------------------------------
  */
 
-import { defineJQueryPlugin, getElementFromSelector, isRTL, isVisible, reflow } from './util/index'
+import { getElementFromSelector, isRTL, isVisible, reflow } from './util/index'
 import EventHandler from './dom/event-handler'
 import SelectorEngine from './dom/selector-engine'
 import ScrollBarHelper from './util/scrollbar'
@@ -13,6 +13,7 @@ import BaseComponent from './base-component'
 import Backdrop from './util/backdrop'
 import FocusTrap from './util/focustrap'
 import { enableDismissTrigger } from './util/component-functions'
+import { defineJQueryPlugin } from './util/jquery-stuff'
 
 /**
  * Constants
@@ -314,21 +315,6 @@ class Modal extends BaseComponent {
   }
 
   // Static
-  static jQueryInterface(config, relatedTarget) {
-    return this.each(function () {
-      const data = Modal.getOrCreateInstance(this, config)
-
-      if (typeof config !== 'string') {
-        return
-      }
-
-      if (typeof data[config] === 'undefined') {
-        throw new TypeError(`No method named "${config}"`)
-      }
-
-      data[config](relatedTarget)
-    })
-  }
 }
 
 /**

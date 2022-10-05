@@ -1,5 +1,6 @@
 import Tab from '../../src/tab'
 import { clearFixture, createEvent, getFixture, jQueryMock } from '../helpers/fixture'
+import { getJqueryInterfaceForPlugin } from '../../src/util/jquery-stuff'
 
 describe('Tab', () => {
   let fixtureEl
@@ -682,7 +683,7 @@ describe('Tab', () => {
 
       const div = fixtureEl.querySelector('.nav > div')
 
-      jQueryMock.fn.tab = Tab.jQueryInterface
+      jQueryMock.fn.tab = getJqueryInterfaceForPlugin(Tab)
       jQueryMock.elements = [div]
 
       jQueryMock.fn.tab.call(jQueryMock)
@@ -696,7 +697,7 @@ describe('Tab', () => {
       const div = fixtureEl.querySelector('.nav > div')
       const tab = new Tab(div)
 
-      jQueryMock.fn.tab = Tab.jQueryInterface
+      jQueryMock.fn.tab = getJqueryInterfaceForPlugin(Tab)
       jQueryMock.elements = [div]
 
       jQueryMock.fn.tab.call(jQueryMock)
@@ -712,7 +713,7 @@ describe('Tab', () => {
 
       const spy = spyOn(tab, 'show')
 
-      jQueryMock.fn.tab = Tab.jQueryInterface
+      jQueryMock.fn.tab = getJqueryInterfaceForPlugin(Tab)
       jQueryMock.elements = [div]
 
       jQueryMock.fn.tab.call(jQueryMock, 'show')
@@ -727,7 +728,7 @@ describe('Tab', () => {
       const div = fixtureEl.querySelector('.nav > div')
       const action = 'undefinedMethod'
 
-      jQueryMock.fn.tab = Tab.jQueryInterface
+      jQueryMock.fn.tab = getJqueryInterfaceForPlugin(Tab)
       jQueryMock.elements = [div]
 
       expect(() => {

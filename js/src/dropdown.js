@@ -7,7 +7,6 @@
 
 import * as Popper from '@popperjs/core'
 import {
-  defineJQueryPlugin,
   getElement,
   getNextActiveElement,
   isDisabled,
@@ -20,6 +19,7 @@ import EventHandler from './dom/event-handler'
 import Manipulator from './dom/manipulator'
 import SelectorEngine from './dom/selector-engine'
 import BaseComponent from './base-component'
+import { defineJQueryPlugin } from './util/jquery-stuff'
 
 /**
  * Constants
@@ -336,22 +336,6 @@ class Dropdown extends BaseComponent {
   }
 
   // Static
-  static jQueryInterface(config) {
-    return this.each(function () {
-      const data = Dropdown.getOrCreateInstance(this, config)
-
-      if (typeof config !== 'string') {
-        return
-      }
-
-      if (typeof data[config] === 'undefined') {
-        throw new TypeError(`No method named "${config}"`)
-      }
-
-      data[config]()
-    })
-  }
-
   static clearMenus(event) {
     if (event.button === RIGHT_MOUSE_BUTTON || (event.type === 'keyup' && event.key !== TAB_KEY)) {
       return
