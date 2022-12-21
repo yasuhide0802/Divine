@@ -9,6 +9,7 @@ import { defineJQueryPlugin, reflow } from './util/index.js'
 import EventHandler from './dom/event-handler.js'
 import BaseComponent from './base-component.js'
 import { enableDismissTrigger } from './util/component-functions.js'
+import SelectorEngine from './dom/selector-engine.js'
 
 /**
  * Constants
@@ -28,9 +29,12 @@ const EVENT_SHOW = `show${EVENT_KEY}`
 const EVENT_SHOWN = `shown${EVENT_KEY}`
 
 const CLASS_NAME_FADE = 'fade'
-const CLASS_NAME_HIDE = 'hide' // @deprecated - kept here only for backwards compatibility
+const CLASS_NAME_HIDE = 'hide' // TODO:v6: @deprecated - kept here only for backwards compatibility
 const CLASS_NAME_SHOW = 'show'
 const CLASS_NAME_SHOWING = 'showing'
+
+const CLASS_PROGRESS_BAR = '.toast-progress'
+const CLASS_NAME_PROGRESS_BAR_ANIMATED = 'animated'
 
 const DefaultType = {
   animation: 'boolean',
@@ -145,6 +149,7 @@ class Toast extends BaseComponent {
       return
     }
 
+    this._toggleProgressBar(true)
     this._timeout = setTimeout(() => {
       this.hide()
     }, this._config.delay)
@@ -191,10 +196,27 @@ class Toast extends BaseComponent {
 
   _clearTimeout() {
     clearTimeout(this._timeout)
+    this._toggleProgressBar(false)
     this._timeout = null
   }
 
+  _toggleProgressBar(enable) {
+    const progressBarElement = SelectorEngine.findOne(CLASS_PROGRESS_BAR, this._element)
+    if (!progressBarElement) {
+      return
+    }
+
+    if (enable) {
+      progressBarElement.classList.add(CLASS_NAME_PROGRESS_BAR_ANIMATED)
+      progressBarElement.style.animationDuration = `${this._config.delay}ms`
+      return
+    }
+
+    progressBarElement.classList.remove(CLASS_NAME_PROGRESS_BAR_ANIMATED)
+  }
+
   // Static
+
   static jQueryInterface(config) {
     return this.each(function () {
       const data = Toast.getOrCreateInstance(this, config)
